@@ -1,0 +1,36 @@
+apiversion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: myapp-image:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENV_VAR_1
+              value: "value1"
+            - name: ENV_VAR_2
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: secretkey1
+
+# This is a comment
+# The above code defines a Kubernetes deployment for an application named "myapp".
+
+# It specifies that 3 replicas of the application should be running, and each replica will run in a container named "myapp-container".
+# The container will use the image "myapp-image:latest" and expose port 80.
+
