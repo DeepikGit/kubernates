@@ -1,0 +1,32 @@
+apiversion: v1
+kind: Pod
+metadata:
+  name: mypod
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: mycontainer
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      env:
+        - name: MY_ENV_VAR
+          value: "Hello, World!"
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: myvolume
+  volumes:
+    - name: myvolume
+      emptyDir: {}
+  restartPolicy: Always
+
+
+  # kubectl apply -f pod.yaml
+  # kubectl get pods
+  # kubectl describe pod mypod
+  # kubectl logs mypod
+  # kubectl exec -it mypod -- /bin/bash
+  # kubectl delete pod mypod
+
+  
